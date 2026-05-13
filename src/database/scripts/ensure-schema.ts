@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { Client } from 'pg';
+import { DbEnvs } from 'src/config';
 
 function getRequiredEnv(name: string): string {
   const value = process.env[name];
@@ -23,11 +24,11 @@ function getSchemaName(): string {
 
 async function ensureSchema(): Promise<void> {
   const client = new Client({
-    host: getRequiredEnv('DB_HOST'),
-    port: Number(getRequiredEnv('DB_PORT')),
-    database: getRequiredEnv('DB_DATABASE'),
-    user: getRequiredEnv('DB_USERNAME'),
-    password: getRequiredEnv('DB_PASSWORD'),
+    host: DbEnvs.dbHost,
+    port: DbEnvs.dbPort,
+    database: DbEnvs.dbDatabase,
+    user: DbEnvs.dbUsername,
+    password: DbEnvs.dbPassword,
   });
 
   const schema = getSchemaName();
