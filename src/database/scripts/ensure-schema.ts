@@ -2,18 +2,8 @@ import 'dotenv/config';
 import { Client } from 'pg';
 import { DbEnvs } from 'src/config';
 
-function getRequiredEnv(name: string): string {
-  const value = process.env[name];
-
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-
-  return value;
-}
-
 function getSchemaName(): string {
-  const schema = getRequiredEnv('DB_SCHEMA');
+  const schema = DbEnvs.dbSchema;
 
   if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(schema)) {
     throw new Error(`Invalid schema name: ${schema}`);
