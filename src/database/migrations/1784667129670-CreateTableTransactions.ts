@@ -1,0 +1,82 @@
+import {
+    MigrationInterface,
+    QueryRunner,
+    Table
+} from 'typeorm';
+
+export class CreateTableTransactions1784667129670 implements MigrationInterface {
+
+    public async up(queryRunner: QueryRunner): Promise<void> {
+
+        await queryRunner.createTable(
+            new Table({
+                schema: 'collections',
+                name: 'transactions',
+                columns: [
+                {
+                    name: 'id',
+                    type: 'int',
+                    isPrimary: true,
+                    isGenerated: true,
+                    generationStrategy: 'increment',
+                },
+                {
+                    name: 'receiveName',
+                    type: 'varchar',
+                    isNullable: false,
+                },
+                {
+                    name: 'description',
+                    type: 'varchar',
+                    isNullable: false,
+                },
+                {
+                    name: 'origin',
+                    type: 'varchar',
+                    isNullable: false,
+                },
+                {
+                    name: 'accountNumber',
+                    type: 'varchar',
+                    isNullable: false,
+                },
+                {
+                    name: 'total',
+                    type: 'decimal',
+                    precision: 10,
+                    scale: 2,
+                    isNullable: false,
+                },
+                {
+                    name: 'state',
+                    type: 'varchar',
+                    isNullable: false,
+                },
+                {
+                    name: 'created_at',
+                    type: 'timestamptz',
+                    default: 'now()',
+                    isNullable: false,
+                },
+                {
+                    name: 'updated_at',
+                    type: 'timestamptz',
+                    default: 'now()',
+                    isNullable: false,
+                },
+                {
+                    name: 'deleted_at',
+                    type: 'timestamptz',
+                    isNullable: true,
+                },
+                ],
+            }),
+            );
+
+    }
+
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable('transactions');
+    }
+
+}
